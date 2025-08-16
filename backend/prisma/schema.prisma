@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// We will keep track of our own createdAt and updatedAt timestamps 
+model Bill {
+  id         Int       @id @default(autoincrement())
+  billNumber Int       @unique
+  billType   String
+  congress   Int
+  title      String
+  status     String
+  summary    String?
+  updateDate DateTime?
+  policyArea String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  actions  Action[]
+  sponsors Sponsor[]
+  committees Committee[]
+}
+
+model Action {
+  id             Int      @id @default(autoincrement())
+  billId         Int      
+  introducedDate DateTime
+  latestAction   String
+  actionDate     DateTime
+  bill           Bill     @relation(fields: [billId], references: [id])
+}
+
+model Sponsor {
+  id        Int     @id @default(autoincrement())
+  billId    Int     
+  cosponsor Boolean
+  fullName  String
+  firstName String
+  lastName  String
+  party     String
+  state     String
+  district  String?
+  bill      Bill    @relation(fields: [billId], references: [id])
+}
+
+model Committee {
+  id        Int     @id @default(autoincrement())
+  billId    Int     
+  name      String
+  chamber String
+  bill      Bill    @relation(fields: [billId], references: [id])
+}
