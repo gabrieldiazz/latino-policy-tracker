@@ -14,52 +14,69 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// We will keep track of our own createdAt and updatedAt timestamps 
+// Will only collect Latino relevant bills
 model Bill {
-  id         Int       @id @default(autoincrement())
-  billNumber Int       @unique
-  billType   String
-  congress   Int
-  title      String
-  status     String
-  summary    String?
-  updateDate DateTime?
-  policyArea String
+  id                  String    @id @default(uuid())
+  billNumber          Int       @unique
+  billType            String
+  congress            Int
+  title               String
+  status              Status    @default(INTRODUCED)
+  introducedDate      DateTime
+  summary             String?
+  updateDate          DateTime?
+  policyArea          String
+  legislativeSubjects String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  actions  Action[]
-  sponsors Sponsor[]
+  actions    Action[]
+  sponsors   Sponsor[]
   committees Committee[]
 }
 
 model Action {
-  id             Int      @id @default(autoincrement())
-  billId         Int      
-  introducedDate DateTime
-  latestAction   String
-  actionDate     DateTime
-  bill           Bill     @relation(fields: [billId], references: [id])
+  id           String   @id @default(uuid())
+  billId       String
+  latestAction String
+  actionDate   DateTime
+  bill         Bill     @relation(fields: [billId], references: [id])
 }
 
 model Sponsor {
-  id        Int     @id @default(autoincrement())
-  billId    Int     
-  cosponsor Boolean
+  id        String      @id @default(uuid())
+  billId    String
   fullName  String
   firstName String
   lastName  String
   party     String
   state     String
   district  String?
-  bill      Bill    @relation(fields: [billId], references: [id])
+  role      SponsorRole
+  bill      Bill        @relation(fields: [billId], references: [id])
 }
 
 model Committee {
-  id        Int     @id @default(autoincrement())
-  billId    Int     
-  name      String
+  id      String @id @default(uuid())
+  billId  String
+  name    String
   chamber String
-  bill      Bill    @relation(fields: [billId], references: [id])
+  bill    Bill   @relation(fields: [billId], references: [id])
+}
+
+enum SponsorRole {
+  SPONSOR
+  COSPONSOR
+}
+
+enum Status {
+  INTRODUCED
+  PASSED_HOUSE
+  PASSED_SENATE
+  TO_PRESIDENT
+  VETOED
+  OVERRIDDEN
+  BECAME_LAW
+  FAILED
 }
