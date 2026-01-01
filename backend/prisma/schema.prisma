@@ -5,13 +5,23 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  bills     UserBill[]
+  firstName String?
+  lastName  String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Will only collect Latino relevant bills
@@ -27,6 +37,8 @@ model Bill {
   updateDate          DateTime?
   policyArea          String
   legislativeSubjects String[]
+  users               UserBill[]
+  relevancy           Float?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -34,6 +46,17 @@ model Bill {
   actions    Action[]
   sponsors   Sponsor[]
   committees Committee[]
+}
+
+// establishes many-to-many relationship between users and bills
+model UserBill{
+  user User @relation(fields: [userId], references: [id]) 
+  userId String
+  bill  Bill @relation(fields: [billId], references: [id])
+  billId String
+  assignedAt DateTime @default(now())
+
+  @@id([userId, billId])
 }
 
 model Action {
