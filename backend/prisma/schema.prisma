@@ -44,7 +44,7 @@ model Bill {
   updatedAt DateTime @updatedAt
 
   actions    Action[]
-  sponsors   Sponsor[]
+  sponsors   BillSponsor[]
   committees Committee[]
 }
 
@@ -59,17 +59,8 @@ model UserBill{
   @@id([userId, billId])
 }
 
-model Action {
-  id           String   @id @default(uuid())
-  billId       String
-  latestAction String
-  actionDate   DateTime
-  bill         Bill     @relation(fields: [billId], references: [id])
-}
-
 model Sponsor {
   id        String      @id @default(uuid())
-  billId    String
   fullName  String
   firstName String
   lastName  String
@@ -77,8 +68,28 @@ model Sponsor {
   state     String
   district  String?
   role      SponsorRole
-  bill      Bill        @relation(fields: [billId], references: [id])
+  bills     BillSponsor[]
 }
+
+// establishes many-to-many relationship between bills and sponsors
+model BillSponsor{
+  sponsor Sponsor @relation(fields: [sponsorId], references: [id])
+  sponsorId String
+  bill    Bill @relation(fields: [billId], references: [id])
+  billId  String
+
+  @@id([sponsorId, billId])
+}
+
+model Action {
+  id           String   @id @default(uuid())
+  billId       String
+  text         String
+  type         String
+  actionDate   DateTime
+  bill         Bill     @relation(fields: [billId], references: [id])
+}
+
 
 model Committee {
   id      String @id @default(uuid())
@@ -99,7 +110,7 @@ enum Status {
   PASSED_SENATE
   TO_PRESIDENT
   VETOED
-  OVERRIDDEN
+  RESOLVING_DIFFERENCES
   BECAME_LAW
   FAILED
 }
