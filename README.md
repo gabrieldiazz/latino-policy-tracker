@@ -1,2 +1,2 @@
 # latino-policy-tracker
-A bilingual tracker and explainer of immigration policies impacting the Latino community.
+A tool for tracking U.S. legislation that affects Latino communities. It pulls data from Congress.gov, uses AI/ML to analyze and surface bills with potential community impact, and notifies users about updates to bills they follow, sponsors, and key legislative actions, all in one place.
