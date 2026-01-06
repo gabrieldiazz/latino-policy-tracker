@@ -1,7 +1,7 @@
 import * as z from "zod";
 
-export const DetailedBillSchema = z.looseObject({
-	bill: z.looseObject({
+export const DetailedBillSchema = z
+	.object({
 		actions: z
 			.object({
 				count: z.number().int().nonnegative(),
@@ -15,6 +15,7 @@ export const DetailedBillSchema = z.looseObject({
 			})
 			.optional(),
 		congress: z.number().int().nonnegative(),
+		constitutionalAuthorityStatementText: z.string().optional(),
 		cosponsors: z
 			.object({
 				count: z.number().int().nonnegative(),
@@ -72,5 +73,12 @@ export const DetailedBillSchema = z.looseObject({
 		type: z.string(),
 		updateDate: z.string(),
 		updateDateIncludingText: z.string(),
-	}),
+	})
+	.catchall(z.unknown());
+
+export const DetailedBillResponseSchema = z.object({
+	bill: DetailedBillSchema,
+	request: z.unknown(),
 });
+
+export type DetailedBill = z.infer<typeof DetailedBillResponseSchema>;
