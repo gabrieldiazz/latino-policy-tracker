@@ -23,3 +23,5 @@ export const BillCosponsorsResponseSchema = z.object({
 	}),
 	request: z.unknown(),
 });
+
+export type BillCosponsor = z.infer<typeof BillCosponsorsSchema>;

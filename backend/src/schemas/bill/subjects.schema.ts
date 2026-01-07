@@ -22,3 +22,5 @@ export const BillSubjectsResponseSchema = z.object({
 	}),
 	request: z.unknown(),
 });
+
+export type BillSubjects = z.infer<typeof BillSubjectsSchema>;

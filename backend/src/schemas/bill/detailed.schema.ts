@@ -81,4 +81,4 @@ export const DetailedBillResponseSchema = z.object({
 	request: z.unknown(),
 });
 
-export type DetailedBill = z.infer<typeof DetailedBillResponseSchema>;
+export type DetailedBill = z.infer<typeof DetailedBillSchema>;

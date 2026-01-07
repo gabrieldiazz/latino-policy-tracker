@@ -17,3 +17,5 @@ export const SummarizedBillResponseSchema = z.object({
 	}),
 	request: z.unknown(),
 });
+
+export type SummarizedBill = z.infer<typeof SummarizedBillSchema>;
