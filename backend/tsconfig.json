@@ -12,7 +12,7 @@
 		"target": "ES2023",
 		// For nodejs:
 		"lib": ["esnext"],
-		"types": ["node"],
+		"types": ["node", "jest"], // For nodejs types
 		// and npm install -D @types/node
 
 		// Other Outputs

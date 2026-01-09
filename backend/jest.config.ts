@@ -104,7 +104,7 @@ const config: Config = {
 	// notifyMode: "failure-change",
 
 	// A preset that is used as a base for Jest's configuration
-	// preset: undefined,
+	preset: "ts-jest",
 
 	// Run tests from one or more projects
 	// projects: undefined,
@@ -128,7 +128,7 @@ const config: Config = {
 	// rootDir: undefined,
 
 	// A list of paths to directories that Jest should use to search for files in
-	roots: ["./__tests__"],
+	//roots: ["./__tests__"],
 
 	// Allows you to use a custom runner instead of Jest's default test runner
 	// runner: "jest-runner",
@@ -145,8 +145,8 @@ const config: Config = {
 	// A list of paths to snapshot serializer modules Jest should use for snapshot testing
 	// snapshotSerializers: [],
 
-	// The test environment that will be used for testing
-	// testEnvironment: "jest-environment-node",
+	//The test environment that will be used for testing
+	testEnvironment: "jest-environment-node",
 
 	// Options that will be passed to the testEnvironment
 	// testEnvironmentOptions: {},
@@ -155,10 +155,10 @@ const config: Config = {
 	// testLocationInResults: false,
 
 	// The glob patterns Jest uses to detect test files
-	// testMatch: [
-	//   "**/__tests__/**/*.?([mc])[jt]s?(x)",
-	//   "**/?(*.)+(spec|test).?([mc])[jt]s?(x)"
-	// ],
+	testMatch: [
+		"**/__tests__/**/*.?([mc])[jt]s?(x)",
+		"**/?(*.)+(spec|test).?([mc])[jt]s?(x)",
+	],
 
 	// An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
 	// testPathIgnorePatterns: [
