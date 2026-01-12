@@ -8,6 +8,16 @@ export const DetailedBillSchema = z
 				url: z.string(),
 			})
 			.optional(),
+		cboCostEstimates: z
+			.array(
+				z.looseObject({
+					description: z.string(),
+					pubdate: z.string(),
+					title: z.string(),
+					url: z.string(),
+				}),
+			)
+			.optional(),
 		committees: z
 			.object({
 				count: z.number().int().nonnegative(),

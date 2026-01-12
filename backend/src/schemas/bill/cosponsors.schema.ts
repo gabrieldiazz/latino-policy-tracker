@@ -2,6 +2,7 @@ import * as z from "zod";
 
 export const BillCosponsorsSchema = z.object({
 	bioguideId: z.string(),
+	district: z.number().int().nonnegative(),
 	firstName: z.string(),
 	fullName: z.string(),
 	isOriginalCosponsor: z.boolean(),
