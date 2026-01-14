@@ -15,7 +15,8 @@ export async function fetchEachPage<
 			};
 		}
 	>,
->( // schema is the Zod schema for the response, key is the key in the response containing the items
+>(
+	// schema is the Zod schema for the response, key is the key in the response containing the items
 	initialUrl: string,
 	schema: S,
 	key: K,
