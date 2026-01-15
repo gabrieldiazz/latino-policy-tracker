@@ -13,9 +13,7 @@ export const SummarizedBillResponseSchema = z.object({
 	pagination: z.object({
 		count: z.number().int().nonnegative(),
 		next: z.string().optional(),
-		prev: z.string().optional(),
 	}),
-	request: z.unknown(),
 });
 
 export type SummarizedBill = z.infer<typeof SummarizedBillSchema>;

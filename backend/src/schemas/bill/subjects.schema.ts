@@ -20,7 +20,6 @@ export const BillSubjectsResponseSchema = z.object({
 		next: z.string().optional(),
 		prev: z.string().optional(),
 	}),
-	request: z.unknown(),
 });
 
 export type BillSubjects = z.infer<typeof BillSubjectsSchema>;

@@ -23,9 +23,7 @@ export const RawBillResponseSchema = z.object({
 	pagination: z.object({
 		count: z.number().int().nonnegative(),
 		next: z.string().optional(),
-		prev: z.string().optional(),
 	}),
-	request: z.unknown(),
 });
 
 export type RawBill = z.infer<typeof RawBillSchema>;

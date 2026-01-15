@@ -2,7 +2,7 @@ import * as z from "zod";
 
 export const BillCosponsorsSchema = z.object({
 	bioguideId: z.string(),
-	district: z.number().int().nonnegative(),
+	district: z.number().int().nonnegative().optional(),
 	firstName: z.string(),
 	fullName: z.string(),
 	isOriginalCosponsor: z.boolean(),
@@ -20,9 +20,7 @@ export const BillCosponsorsResponseSchema = z.object({
 		count: z.number().int().nonnegative(),
 		countIncludingWithdrawnCosponsors: z.number().int().nonnegative(),
 		next: z.string().optional(),
-		prev: z.string().optional(),
 	}),
-	request: z.unknown(),
 });
 
 export type BillCosponsor = z.infer<typeof BillCosponsorsSchema>;
