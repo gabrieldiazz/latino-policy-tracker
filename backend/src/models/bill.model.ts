@@ -1,14 +1,13 @@
 export enum Status {
 	INTRODUCED = "INTRODUCED",
-	IN_COMMITTEE = "IN_COMMITTEE",
 	PASSED_HOUSE = "PASSED_HOUSE",
 	PASSED_SENATE = "PASSED_SENATE",
 	TO_PRESIDENT = "TO_PRESIDENT",
 	VETOED = "VETOED",
-	OVERRIDE_VETO = "OVERRIDE_VETO",
 	RESOLVING_DIFFERENCES = "RESOLVING_DIFFERENCES",
 	BECAME_LAW = "BECAME_LAW",
-	FAILED = "FAILED",
+	FAILED_HOUSE = "FAILED_HOUSE",
+	FAILED_SENATE = "FAILED_SENATE",
 }
 
 export enum SponsorRole {
@@ -17,7 +16,7 @@ export enum SponsorRole {
 }
 
 export interface Bill {
-	billNumber: number;
+	billNumber: string;
 	billType: string;
 	congress: number;
 	title: string;
@@ -46,7 +45,7 @@ export interface Sponsor {
 	lastName: string;
 	party: string;
 	state: string;
-	district?: string;
+	district?: number;
 	role: SponsorRole;
 }
 

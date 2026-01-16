@@ -3,6 +3,7 @@ import * as z from "zod";
 export const BillActionsSchema = z.object({
 	actionCode: z.string().optional(),
 	actionDate: z.string(),
+	actionTime: z.string().optional(),
 	committees: z
 		.array(
 			z.object({
